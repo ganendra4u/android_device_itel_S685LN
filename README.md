@@ -1,6 +1,6 @@
 # Device Tree - Itel S25 (S685LN)
 
-> **⚠️ Work In Progress** — Pioneer device tree, komunitas belum ada sebelumnya.
+> **⚠️ Work In Progress** — Pioneer device tree
 
 ## Spesifikasi Device
 
@@ -24,13 +24,13 @@
 
 | Feature | Status |
 |---------|--------|
-| Booting | 🔧 Testing |
-| ADB | 🔧 Testing |
-| MTP | 🔧 Testing |
+| Booting | ❔ Testing |
+| ADB | ❔ Testing |
+| MTP | ❔ Testing |
 | Decryption | ❌ TODO |
-| Flash ZIP | 🔧 Testing |
-| Backup/Restore | 🔧 Testing |
-| External SD | 🔧 Testing |
+| Flash ZIP | ❔ Testing |
+| Backup/Restore | ❔ Testing |
+| External SD | ❔ Testing |
 
 ## Build Instructions
 
@@ -62,7 +62,7 @@ repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aos
 repo sync -j$(nproc) --force-sync --no-clone-bundle
 
 # 4. Clone device tree
-git clone https://github.com/YOUR_USERNAME/device_itel_S685LN device/itel/S685LN
+git clone https://github.com/ganendra4u/device_itel_S685LN device/itel/S685LN
 
 # 5. Copy prebuilt kernel (ekstrak dari stock ROM / boot.img dulu)
 # cp kernel device/itel/S685LN/prebuilt/kernel
@@ -84,13 +84,12 @@ fastboot reboot recovery
 
 ## Notes
 
-- Device ini pertama kali di-port oleh komunitas Indonesia
 - Kernel cmdline dan ukuran partisi perlu diverifikasi ulang setelah UBL
 - Lihat `BoardConfig.mk` untuk bagian yang masih perlu diisi (`# NOTE:`)
 
 ## Maintainer
 
-- **[Your Name]** - [@GitHub](https://github.com/YOUR_USERNAME)
+- **[ganendra4u]** - [@GitHub](https://github.com/ganendra4u)
 
 ## Credits
 
