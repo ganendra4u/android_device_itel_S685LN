@@ -89,7 +89,7 @@ fastboot reboot recovery
 
 ## Maintainer
 
-- **[ganendra4u]** - [@GitHub](https://github.com/ganendra4u)
+- **ganendra4u** - [@GitHub](https://github.com/ganendra4u)
 
 ## Credits
 
