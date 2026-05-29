@@ -1,0 +1,11 @@
+# Prebuilt kernel (terlalu besar untuk GitHub, upload sendiri)
+prebuilt/kernel
+
+# Output build
+out/
+
+# Temp files
+*.swp
+*.swo
+*~
+.DS_Store

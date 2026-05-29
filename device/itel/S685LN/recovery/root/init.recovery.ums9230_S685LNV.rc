@@ -1,0 +1,44 @@
+# init.recovery.ums9230_S685LNV.rc
+# Itel S25 (S685LN) - Unisoc UMS9230S
+
+on init
+    # Set timezone
+    setprop persist.sys.timezone Asia/Jakarta
+
+on fs
+    # Mount metadata first (needed for FBE)
+    mount_all /first_stage_ramdisk/fstab.ums9230_S685LNV --early
+
+on late-fs
+    mount_all /first_stage_ramdisk/fstab.ums9230_S685LNV --late
+
+# USB config untuk Unisoc
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 1782
+    write /sys/class/android_usb/android0/idProduct 4D00
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state adb
+
+on property:sys.usb.config=mass_storage
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 1782
+    write /sys/class/android_usb/android0/idProduct 4D02
+    write /sys/class/android_usb/android0/functions mass_storage
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state mass_storage
+
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 1782
+    write /sys/class/android_usb/android0/idProduct 4E11
+    write /sys/class/android_usb/android0/functions mtp,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state mtp,adb
+
+# Brightness
+on property:hw.init_power_off_charging=1
+    write /sys/class/backlight/sprd_backlight/brightness 100

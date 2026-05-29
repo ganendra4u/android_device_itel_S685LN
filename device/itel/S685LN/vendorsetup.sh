@@ -1,0 +1,3 @@
+add_lunch_combo omni_S685LN-eng
+add_lunch_combo omni_S685LN-userdebug
+add_lunch_combo twrp_S685LN-eng

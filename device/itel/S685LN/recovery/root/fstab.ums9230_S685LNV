@@ -1,0 +1,48 @@
+# fstab.ums9230_S685LNV
+# Itel S25 (S685LN) - Unisoc UMS9230S
+# Android 15 - A/B Partition - Dynamic Partitions - EROFS
+#
+# <src>                                    <mnt_point>    <type>    <mnt_flags>                                                                          <fs_mgr_flags>
+
+# Dynamic / Logical Partitions (EROFS)
+system                                     /system        erofs     ro                                                                                   wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,slotselect
+system                                     /system        ext4      ro,barrier=1                                                                         wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,slotselect
+system_ext                                 /system_ext    erofs     ro                                                                                   wait,avb=vbmeta_system,logical,first_stage_mount,slotselect
+vendor                                     /vendor        erofs     ro                                                                                   wait,avb=vbmeta_vendor,logical,first_stage_mount,slotselect
+odm                                        /odm           erofs     ro                                                                                   wait,avb=vbmeta_odm,logical,first_stage_mount,slotselect
+product                                    /product       erofs     ro                                                                                   wait,avb=vbmeta_product,logical,first_stage_mount,slotselect
+vendor_dlkm                                /vendor_dlkm   erofs     ro                                                                                   wait,avb=vbmeta_system_ext,logical,first_stage_mount,slotselect
+system_dlkm                                /system_dlkm   erofs     ro                                                                                   wait,avb=vbmeta_system_ext,logical,first_stage_mount,slotselect
+
+# Userdata - f2fs dengan enkripsi
+/dev/block/by-name/userdata                /data          f2fs      noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065,inline_xattr,inline_data,inlinecrypt,fsync_mode=nobarrier,atgc    latemount,wait,quota,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,reservedsize=128M,checkpoint=fs,formattable
+
+# Cache
+/dev/block/by-name/cache                   /cache         f2fs      noatime,nosuid,nodev,discard                                                         wait,check,formattable
+/dev/block/by-name/cache                   /cache         ext4      noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc                                 wait,check,formattable
+
+# Metadata (wajib untuk dynamic partitions + FBE)
+/dev/block/by-name/metadata                /metadata      f2fs      nodev,noatime,nosuid                                                                 wait,formattable,first_stage_mount,check
+/dev/block/by-name/metadata                /metadata      ext4      nodev,noatime,nosuid,errors=panic                                                    wait,formattable,first_stage_mount,check
+
+# Misc
+/dev/block/by-name/misc                    /misc          emmc      defaults                                                                             defaults
+
+# Vendor partition (prodnv)
+/dev/block/by-name/prodnv                  /mnt/vendor    ext4      noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc                                 wait,check
+
+# Tranfs
+/dev/block/by-name/tranfs                  /tranfs        ext4      rw,noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc                              wait,check,formattable,nofail,first_stage_mount
+
+# Blackbox
+/dev/block/by-name/blackbox                /blackbox      f2fs      noatime,nosuid,nodev,discard                                                         check
+/dev/block/by-name/blackbox                /blackbox      ext4      noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc                                 check
+
+# ZRAM
+/dev/block/zram0                           none           swap      defaults                                                                             zramsize=62%,zram_backingdev_size=500M
+
+# External Storage
+/devices/platform/soc/soc:ap-*/*.sdio/mmc_host/mmc1/mmc1:*/block/mmcblk1    auto    vfat    defaults    voldmanaged=sdcard0:auto,noemulatedsd,encryptable=footer
+
+# USB OTG
+/devices/platform/soc/soc:*/*.usb/musb-hdrc.*.auto/usb*    auto    vfat    defaults    voldmanaged=usbdisk:auto,encryptable=userdata
