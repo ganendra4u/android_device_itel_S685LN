@@ -1,0 +1,63 @@
+# twrp.flags / OrangeFox build flags — itel S25 (S685LN)
+# Include this from BoardConfig.mk via:
+#   -include $(DEVICE_PATH)/twrp.flags
+
+# ── Display ───────────────────────────────────────────────────────────────────
+TW_THEME                        := portrait_hdpi
+TW_EXTRA_LANGUAGES              := true
+TW_DEFAULT_LANGUAGE             := en
+
+# Resolution 1080×2436, density 480
+TW_FRAMERATE                    := 120
+
+# Pixel format from ro.minui.pixel_format
+TARGET_RECOVERY_PIXEL_FORMAT    := RGBX_8888
+
+# ── Screen notch / cutout ─────────────────────────────────────────────────────
+# Device has display cutout (ro.os_displaycutout_support=1)
+TW_Y_OFFSET                     := 100
+TW_H_OFFSET                     := -100
+
+# ── Brightness ────────────────────────────────────────────────────────────────
+TW_BRIGHTNESS_PATH              := /sys/class/backlight/sprd_backlight/brightness
+TW_MAX_BRIGHTNESS               := 2047
+TW_DEFAULT_BRIGHTNESS           := 900
+TW_NO_SCREEN_BLANK              := true
+
+# ── Haptic / vibrator ─────────────────────────────────────────────────────────
+TW_SUPPORT_INPUT_AIDL_HAPTICS   := true
+
+# ── USB / MTP ─────────────────────────────────────────────────────────────────
+# USB VID/PID from ro.recovery.usb.*
+TW_USB_STORAGE                  := true
+RECOVERY_SDCARD_ON_DATA         := true
+TW_HAS_USB_STORAGE              := true
+
+# ── Crypto ────────────────────────────────────────────────────────────────────
+TW_INCLUDE_CRYPTO               := true
+TW_INCLUDE_CRYPTO_FBE           := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_METADATA_PARTITION   := true
+
+# ── Misc tools ────────────────────────────────────────────────────────────────
+TW_INCLUDE_NTFS_3G              := true
+TW_INCLUDE_FUSE_EXFAT           := true
+TW_INCLUDE_REPACKTOOLS          := true
+TW_INCLUDE_RESETPROP            := true
+TW_INCLUDE_LIBRESETPROP         := true
+TW_INCLUDE_LPDUMP               := true
+TW_INCLUDE_LPTOOLS              := true
+
+# ── Logcat during recovery ────────────────────────────────────────────────────
+TWRP_INCLUDE_LOGCAT             := true
+TARGET_USES_LOGD                := true
+
+# ── Virtual A/B / snapshot ────────────────────────────────────────────────────
+TW_ENABLE_VIRTUAL_AB_SNAPSHOT_MERGE := true
+
+# ── Fastboot (via recovery) ───────────────────────────────────────────────────
+# USB PID from ro.recovery.usb.fastboot.pid = 4EE0, VID = 18D1
+TW_LOAD_VENDOR_MODULES          := true
+
+# ── Device info strings ───────────────────────────────────────────────────────
+TW_DEVICE_VERSION               := 0-itel_S685LN

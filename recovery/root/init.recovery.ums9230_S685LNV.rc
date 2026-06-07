@@ -1,0 +1,8 @@
+on property:ro.boot.bootreason=reboot,userrequested,recovery
+    start recovery
+
+on property:sys.trans_recovery_reboot=1
+    start recovery
+
+on property:ro.bootmode=recovery
+    start recovery
